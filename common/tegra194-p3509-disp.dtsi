@@ -26,6 +26,16 @@
 #include "tegra194-fixed-regulator-p3509-0000-a00.dtsi"
 #include "tegra194-spmic-p3668.dtsi"
 
+#define POWERTIP_EDID_FDI_800x480 \
+[00 ff ff ff ff ff ff 00 04 81 04 00 01 00 00 00\
+ 01 11 01 03 80 0f 08 00 02 42 cc 8f 52 57 99 23\
+ 12 4c 52 00 00 00 01 01 01 01 01 01 01 01 01 01\
+ 01 01 01 01 01 01 50 0f 20 c8 30 e0 50 10 9a 0a\
+ 9a 00 e8 30 32 00 00 1e 00 00 00 10 00 00 00 00\
+ 00 00 00 00 00 00 00 00 00 00 00 00 00 10 00 00\
+ 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 10\
+ 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 7e]
+
 &head0 {
 	status = "okay";
 	nvidia,fb-bpp = <32>;
@@ -49,32 +59,39 @@
 	nvidia,fb-win = <3>;
 	nvidia,dc-connector = <&sor0>;
 	nvidia,dc-flags = <TEGRA_DC_FLAG_ENABLED>;
-	vdd-dp-pwr-supply = <&p3668_spmic_sd0>;
-	avdd-dp-pll-supply = <&p3668_spmic_sd1>;
-	vdd-edp-sec-mode-supply = <&battery_reg>;
-	vdd-dp-pad-supply = <&battery_reg>;
-	vdd_hdmi_5v0-supply = <&p3509_vdd_hdmi_5v0>;
+	//vdd-dp-pwr-supply = <&p3668_spmic_sd0>;
+	//avdd-dp-pll-supply = <&p3668_spmic_sd1>;
+	//vdd-edp-sec-mode-supply = <&battery_reg>;
+	//vdd-dp-pad-supply = <&battery_reg>;
+	avdd_hdmi-supply = <&p3668_spmic_sd0>; /* 1v0 */
+	avdd_hdmi_pll-supply = <&p3668_spmic_sd1>; /* 1v8 */
+	vdd_hdmi_5v0-supply = <&p3509_vdd_hdmi_5v0>; /* 5v0 */
 };
 
 &sor0 {
 	status = "okay";
 	nvidia,active-panel = <&sor0_dp_display>;
-	nvidia,sor-hdcp-not-supported;
+	//nvidia,sor-hdcp-not-supported;
+	nvidia,xbar-ctrl = <0x0 0x1 0x2 0x3 0x4>;
 };
 
-&sor0_dp_display {
+&sor0_hdmi_display {
 	status = "okay";
-	nvidia,is_ext_dp_panel = <1>;
+	disp-default-out {
+		nvidia,out-flags = <TEGRA_DC_OUT_HOTPLUG_LOW>;
+	};
 };
 
 &sor1 {
 	status = "okay";
 	nvidia,active-panel = <&sor1_hdmi_display>;
-	nvidia,sor-hdcp-not-supported;
+	nvidia,xbar-ctrl = <0x0 0x1 0x2 0x3 0x4>;
 };
 
 &sor1_hdmi_display {
 	status = "okay";
+	compatible = "hdmi,display";
+	nvidia,edid = POWERTIP_EDID_FDI_800x480;	
 	disp-default-out {
 		nvidia,out-flags = <TEGRA_DC_OUT_HOTPLUG_LOW>;
 	};

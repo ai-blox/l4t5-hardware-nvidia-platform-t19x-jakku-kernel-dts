@@ -1,0 +1,49 @@
+/*
+ * Top level DTS file for CVM:P3668-0001 and CVB:P3509-0000.
+ *
+ * Copyright (c) 2019-2020, NVIDIA CORPORATION.  All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 2 of the License.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
+ */
+
+/dts-v1/;
+#include "common/tegra194-p3668-ai-blox-common.dtsi"
+#include "common/tegra194-p3509-0000-a00.dtsi"
+#include "common/tegra194-mx1030-1-gpio.dtsi"
+
+/ {
+	nvidia,dtsfilename = __FILE__;
+	nvidia,dtbbuildtime = __DATE__, __TIME__;
+
+	compatible = "nvidia,p3449-0000+p3668-0000", "nvidia,p3449-0000+p3668-0001", "nvidia,p3509-0000+p3668-0000", "nvidia,p3509-0000+p3668-0001", "nvidia,tegra194";
+
+
+	i2c@c240000 {
+		polytouch: edt-ft5x06@38 {
+			compatible = "edt,edt-ft5406", "edt,edt-ft5x06";
+			reg = <0x38>;
+			//pinctrl-names = "default";
+			//pinctrl-0 = <&pinctrl_edt_ft5x06>;
+			interrupt-parent = <&tegra_main_gpio>;
+			interrupts = <TEGRA194_MAIN_GPIO(H, 1) 0x01>;
+			touchscreen-size-x = <800>;
+			touchscreen-size-y = <480>;
+			status = "okay";
+		};
+	};
+
+	thermal-fan-est {
+		status = "disabled";
+	};
+
+	tachometer@39c0000 {
+		status = "disbaled";
+	};
+};

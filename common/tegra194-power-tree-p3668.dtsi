@@ -27,6 +27,10 @@
 		vmmc-supply = <&p3668_vdd_sdmmc1_sw>;
 	};
 
+	sdhci@3440000 {
+		vmmc-supply = <&p3668_vdd_sdmmc3_sw>;
+	};
+
 	ether_qos@2490000 {
 		vddio_sys_enet_bias-supply = <&battery_reg>;
 		vddio_enet-supply = <&battery_reg>;

@@ -1,0 +1,110 @@
+#include <dt-bindings/gpio/tegra194-gpio.h>
+
+/{
+	gpio@2200000 {
+		gpio-init-names = "default";
+		gpio-init-0 = <&gpio_mx1030_default>;
+
+		gpio_mx1030_default: default {
+			/*
+			gpio-input = <
+				TEGRA194_MAIN_GPIO(Q, 1)
+				TEGRA194_MAIN_GPIO(S, 4)
+				TEGRA194_MAIN_GPIO(Q, 2)
+				TEGRA194_AON_GPIO(CC, 3)
+			>;
+			gpio-output-low = <
+				TEGRA194_MAIN_GPIO(Q, 3)
+				TEGRA194_AON_GPIO(CC, 0)
+				TEGRA194_AON_GPIO(CC, 1)
+				TEGRA194_AON_GPIO(CC, 2)
+			>;
+			*/
+			gpio-output-high = <
+				TEGRA194_MAIN_GPIO(Q, 5)
+				TEGRA194_MAIN_GPIO(Q, 6)
+			>;
+		};
+		usbp1 {
+			gpio-hog;
+			output-high;
+			gpios = <TEGRA194_MAIN_GPIO(Q, 5) 0>;
+			label = "usbp1";
+			status = "okay";
+		};
+		/*
+
+		di1 {
+			gpio-hog;
+			input;
+			gpios = <TEGRA194_MAIN_GPIO(Q, 1) 0>;
+			label = "di1";
+			status = "okay";
+		};
+		di2 {
+			gpio-hog;
+			input;
+			gpios = <TEGRA194_MAIN_GPIO(S, 4) 0>;
+			label = "di2";
+			status = "okay";
+		};
+		di3 {
+			gpio-hog;
+			input;
+			gpios = <TEGRA194_MAIN_GPIO(Q, 2) 0>;
+			label = "di3";
+			status = "okay";
+		};
+
+		do1 {
+			gpio-hog;
+			output-low;
+			gpios = <TEGRA194_MAIN_GPIO(Q, 3) 0>;
+			label = "do1";
+			status = "okay";
+		};
+		*/
+	};
+
+
+	gpio@c2f0000 {
+		pwr_sdcard {
+			gpio-hog;
+			output-low;
+			gpios = <TEGRA194_AON_GPIO(CC, 4) 0>;
+			label = "pwr_sdcard";
+			status = "okay";
+		};
+		/*
+		di4 {
+			gpio-hog;
+			input;
+			gpios = <TEGRA194_AON_GPIO(CC, 3) 0>;
+			label = "di4";
+			status = "okay";
+		};
+		do2 {
+			gpio-hog;
+			output-low;
+			gpios = <TEGRA194_AON_GPIO(CC, 0) 0>;
+			label = "do2";
+			status = "okay";
+		};
+		do3 {
+			gpio-hog;
+			output-low;
+			gpios = <TEGRA194_AON_GPIO(CC, 1) 0>;
+			label = "do1";
+			status = "okay";
+		};
+		do4 {
+			gpio-hog;
+			output-low;
+			gpios = <TEGRA194_AON_GPIO(CC, 2) 0>;
+			label = "do2";
+			status = "okay";
+		};
+		*/
+
+	};
+};
